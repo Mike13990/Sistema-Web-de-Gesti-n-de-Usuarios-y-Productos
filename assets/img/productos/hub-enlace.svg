@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Hub Enlace 7</title>
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ddff"/><stop offset="1" stop-color="#dceef8"/></linearGradient><linearGradient id="h" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#247ba0"/><stop offset="1" stop-color="#102a43"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#b)"/>
+  <path d="M0 453c151-87 253-19 402-66 155-49 243-158 398-82v295H0Z" fill="#fff" opacity=".55"/>
+  <g transform="translate(184 122)">
+    <path d="M363 135c92-36 132-8 162 44 18 31 27 52 71 53" fill="none" stroke="#163a5f" stroke-width="18" stroke-linecap="round"/>
+    <rect x="0" y="56" width="390" height="274" rx="54" fill="url(#h)" transform="rotate(-7 195 193)"/>
+    <g transform="rotate(-7 195 193)">
+      <rect x="42" y="100" width="134" height="34" rx="9" fill="#dceef8"/>
+      <rect x="42" y="158" width="134" height="34" rx="9" fill="#dceef8"/>
+      <rect x="42" y="216" width="60" height="34" rx="9" fill="#f6c453"/>
+      <rect x="116" y="216" width="60" height="34" rx="9" fill="#ef8354"/>
+      <circle cx="300" cy="182" r="55" fill="#1f9d8a" opacity=".9"/>
+      <path d="M278 182h44M300 160v44" stroke="#fff" stroke-width="12" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>
+

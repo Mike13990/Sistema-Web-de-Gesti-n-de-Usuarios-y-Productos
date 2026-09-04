@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Teclado Nube K75</title>
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dceef8"/><stop offset="1" stop-color="#d9f3ed"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#102a43" flood-opacity=".18"/></filter></defs>
+  <rect width="800" height="600" fill="url(#b)"/>
+  <circle cx="682" cy="98" r="105" fill="#f6c453" opacity=".32"/>
+  <g transform="translate(117 173) rotate(-4 284 130)" filter="url(#s)">
+    <rect width="566" height="262" rx="34" fill="#163a5f"/>
+    <rect x="24" y="25" width="518" height="210" rx="20" fill="#102a43"/>
+    <g fill="#f8fbfd">
+      <path d="M48 51h47v34H48zM108 51h47v34h-47zM168 51h47v34h-47zM228 51h47v34h-47zM288 51h47v34h-47zM348 51h47v34h-47zM408 51h47v34h-47zM468 51h47v34h-47z"/>
+      <path d="M48 99h57v34H48zM118 99h47v34h-47zM178 99h47v34h-47zM238 99h47v34h-47zM298 99h47v34h-47zM358 99h47v34h-47zM418 99h47v34h-47zM478 99h37v34h-37z" opacity=".9"/>
+      <path d="M48 147h70v34H48zM131 147h47v34h-47zM191 147h47v34h-47zM251 147h47v34h-47zM311 147h47v34h-47zM371 147h47v34h-47zM431 147h84v34h-84z" opacity=".82"/>
+      <path d="M48 195h85v26H48zM146 195h259v26H146zM418 195h97v26h-97z" opacity=".72"/>
+    </g>
+    <rect x="288" y="51" width="47" height="34" rx="4" fill="#ef8354"/>
+    <rect x="348" y="99" width="47" height="34" rx="4" fill="#1f9d8a"/>
+  </g>
+</svg>
+

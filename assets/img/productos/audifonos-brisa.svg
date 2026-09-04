@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Audífonos Brisa ANC</title>
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8ddff"/><stop offset="1" stop-color="#d9f3ed"/></linearGradient><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1d4f7a"/><stop offset="1" stop-color="#102a43"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#b)"/>
+  <path d="M105 147c101-82 180 10 279-40 120-61 205-25 313 57" fill="none" stroke="#fff" stroke-width="18" opacity=".55"/>
+  <g transform="translate(164 59)">
+    <ellipse cx="236" cy="462" rx="222" ry="31" fill="#102a43" opacity=".15"/>
+    <path d="M57 249v-52C57 87 136 0 236 0s179 87 179 197v52" fill="none" stroke="#102a43" stroke-width="47" stroke-linecap="round"/>
+    <path d="M91 207v-19c0-87 64-151 145-151s145 64 145 151v19" fill="none" stroke="#247ba0" stroke-width="14" stroke-linecap="round"/>
+    <rect x="0" y="211" width="139" height="229" rx="62" fill="url(#a)" transform="rotate(-6 70 326)"/>
+    <rect x="333" y="211" width="139" height="229" rx="62" fill="url(#a)" transform="rotate(6 403 326)"/>
+    <rect x="35" y="246" width="65" height="159" rx="31" fill="#1f9d8a"/>
+    <rect x="372" y="246" width="65" height="159" rx="31" fill="#ef8354"/>
+    <path d="M139 374c48 32 146 32 194 0" fill="none" stroke="#f6c453" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>
+

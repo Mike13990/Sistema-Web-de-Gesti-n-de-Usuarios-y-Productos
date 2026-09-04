@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Lámpara Lumen Flex</title>
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3cd"/><stop offset="1" stop-color="#ffebe2"/></linearGradient><radialGradient id="l"><stop stop-color="#fff" stop-opacity=".95"/><stop offset=".45" stop-color="#f6c453" stop-opacity=".45"/><stop offset="1" stop-color="#f6c453" stop-opacity="0"/></radialGradient></defs>
+  <rect width="800" height="600" fill="url(#b)"/>
+  <circle cx="405" cy="210" r="230" fill="url(#l)"/>
+  <g transform="translate(225 70)">
+    <ellipse cx="206" cy="456" rx="170" ry="36" fill="#102a43" opacity=".16"/>
+    <path d="M182 399 238 170" stroke="#163a5f" stroke-width="30" stroke-linecap="round"/>
+    <path d="m234 177 71-88" stroke="#163a5f" stroke-width="24" stroke-linecap="round"/>
+    <circle cx="237" cy="174" r="27" fill="#1f9d8a" stroke="#fff" stroke-width="7"/>
+    <path d="M257 65h115c23 0 36 25 24 45l-47 80H225l9-99c1-15 11-26 23-26Z" fill="#ef8354"/>
+    <path d="M225 190h124l-20 34H222Z" fill="#f6c453"/>
+    <path d="M93 395h193c21 0 38 17 38 38v12H55v-12c0-21 17-38 38-38Z" fill="#102a43"/>
+    <rect x="116" y="421" width="147" height="12" rx="6" fill="#247ba0"/>
+  </g>
+</svg>
+

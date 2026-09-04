@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Webcam Mirador FHD</title>
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9f3ed"/><stop offset="1" stop-color="#e8ddff"/></linearGradient><radialGradient id="l"><stop stop-color="#85d8ce"/><stop offset=".45" stop-color="#247ba0"/><stop offset="1" stop-color="#102a43"/></radialGradient></defs>
+  <rect width="800" height="600" fill="url(#b)"/>
+  <path d="M70 464c153-90 287-43 404-3 108 36 197 32 256-18" fill="none" stroke="#fff" stroke-width="25" opacity=".7"/>
+  <g transform="translate(144 122)">
+    <ellipse cx="257" cy="344" rx="238" ry="39" fill="#102a43" opacity=".16"/>
+    <rect x="0" y="0" width="512" height="274" rx="98" fill="#102a43"/>
+    <circle cx="256" cy="137" r="94" fill="#163a5f" stroke="#627d98" stroke-width="12"/>
+    <circle cx="256" cy="137" r="64" fill="url(#l)"/>
+    <circle cx="228" cy="111" r="18" fill="#fff" opacity=".5"/>
+    <circle cx="75" cy="137" r="9" fill="#ef8354"/>
+    <circle cx="437" cy="137" r="9" fill="#1f9d8a"/>
+    <path d="M203 272h106l28 49H175Z" fill="#163a5f"/>
+    <rect x="117" y="314" width="280" height="35" rx="17" fill="#102a43"/>
+  </g>
+</svg>
+

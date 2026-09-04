@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Producto sin imagen</title>
+  <defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eaf2f8"/><stop offset="1" stop-color="#d9e2ec"/></linearGradient></defs>
+  <rect width="800" height="600" fill="url(#b)"/>
+  <g transform="translate(240 140)">
+    <rect width="320" height="320" rx="54" fill="#fff" stroke="#bcccdc" stroke-width="8"/>
+    <path d="m55 240 72-84 53 57 40-40 52 67H55Z" fill="#dceef8"/>
+    <circle cx="226" cy="92" r="35" fill="#f6c453" opacity=".8"/>
+    <path d="M160 62v86M117 105h86" stroke="#247ba0" stroke-width="15" stroke-linecap="round"/>
+  </g>
+</svg>
+

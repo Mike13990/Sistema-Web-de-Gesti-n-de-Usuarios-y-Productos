@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Nodo Altura 502</title>
+  <desc id="descripcion">Montaña geométrica conectada por tres nodos.</desc>
+  <defs>
+    <linearGradient id="fondo" x1="32" y1="28" x2="224" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D4F7A"/>
+      <stop offset="1" stop-color="#102A43"/>
+    </linearGradient>
+    <linearGradient id="ruta" x1="54" y1="188" x2="198" y2="68" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1F9D8A"/>
+      <stop offset="1" stop-color="#F6C453"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="232" height="232" rx="58" fill="url(#fondo)"/>
+  <path d="M47 178 98 98l28 41 37-61 48 100H47Z" fill="#fff" opacity=".12"/>
+  <path d="m49 181 49-79 29 42 37-62 45 99" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m65 174 35-55 28 40 36-58 25 52" fill="none" stroke="url(#ruta)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="100" cy="119" r="12" fill="#1F9D8A" stroke="#fff" stroke-width="5"/>
+  <circle cx="128" cy="159" r="12" fill="#EF8354" stroke="#fff" stroke-width="5"/>
+  <circle cx="164" cy="101" r="12" fill="#F6C453" stroke="#fff" stroke-width="5"/>
+</svg>
+
