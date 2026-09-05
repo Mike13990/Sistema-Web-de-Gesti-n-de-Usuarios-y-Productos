@@ -54,7 +54,7 @@ require __DIR__ . "/includes/encabezado.php";
             <span class="etiqueta-superior">Comercio tecnológico guatemalteco</span>
             <h1>Herramientas bien elegidas para estudiar, crear y trabajar mejor.</h1>
             <p>
-                En Nodo Altura 502 reunimos accesorios funcionales para espacios de estudio,
+                En ConectaPro reunimos accesorios funcionales para espacios de estudio,
                 trabajo remoto y pequeños negocios. Menos ruido, mejores decisiones y soporte cercano.
             </p>
             <div class="grupo-botones">
@@ -68,7 +68,7 @@ require __DIR__ . "/includes/encabezado.php";
         </div>
 
         <div class="hero-visual" aria-label="Resumen del catálogo">
-            <img src="assets/img/logo.svg" alt="Logotipo de Nodo Altura 502">
+            <img src="assets/img/logo.png" alt="Logotipo de ConectaPro">
             <div class="dato-hero">
                 <strong><?php echo (int) $resumen["total_productos"]; ?></strong>
                 <span>productos activos</span>
@@ -129,7 +129,9 @@ require __DIR__ . "/includes/encabezado.php";
                 <?php while ($producto = $productos->fetch_assoc()) { ?>
                     <article class="tarjeta-producto">
                         <div class="producto-imagen">
-                            <img src="<?php echo escapar(ruta_imagen_producto($producto["imagen"])); ?>" alt="<?php echo escapar($producto["nombre"]); ?>" loading="lazy">
+                            <img src="<?php echo escapar(ruta_imagen_producto($producto["imagen"])); ?>" 
+                            alt="<?php echo escapar($producto["nombre"]); ?>" 
+                            loading="lazy">
                             <span class="insignia-categoria"><?php echo escapar($producto["categoria"]); ?></span>
                         </div>
                         <div class="producto-contenido">

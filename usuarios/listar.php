@@ -11,156 +11,132 @@ require_once __DIR__ . "/../conexion.php";
 $usuario_actual = sincronizar_usuario_sesion($conexion, "../login.php");
 requerir_roles(["administrador", "usuario"], "../panel.php");
 
-$es_administrador = $usuario_actual["tipo"] === "administrador";
-$nombre = "";
-$usuario = "";
-$tipo = $es_administrador ? "usuario" : "visitante";
-$estado = "Activo";
-$errores = [];
+$busqueda = trim($_GET["buscar"] ?? "");
+$filtro_tipo = $_GET["tipo"] ?? "";
+$tipos_validos = ["administrador", "usuario", "visitante"];
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nombre = trim($_POST["nombre"] ?? "");
-    $usuario = strtolower(trim($_POST["usuario"] ?? ""));
-    $password = $_POST["password"] ?? "";
-    $confirmar_password = $_POST["confirmar_password"] ?? "";
-    $tipo = $es_administrador ? ($_POST["tipo"] ?? "") : "visitante";
-    $estado = $es_administrador ? ($_POST["estado"] ?? "") : "Activo";
-
-    if (!csrf_valido($_POST["csrf_token"] ?? null)) {
-        $errores[] = "La solicitud no es válida. Actualice la página e inténtelo nuevamente.";
-    }
-    if (strlen($nombre) < 3 || strlen($nombre) > 100) {
-        $errores[] = "El nombre debe contener entre 3 y 100 caracteres.";
-    }
-    if (!validar_usuario($usuario)) {
-        $errores[] = "El usuario debe tener entre 4 y 30 caracteres y usar solo minúsculas, números, punto, guion o guion bajo.";
-    }
-    if (!validar_password($password)) {
-        $errores[] = "La contraseña debe tener al menos 8 caracteres e incluir letras y números.";
-    }
-    if ($password !== $confirmar_password) {
-        $errores[] = "Las contraseñas no coinciden.";
-    }
-    if (!in_array($tipo, ["administrador", "usuario", "visitante"], true)) {
-        $errores[] = "Seleccione un tipo de usuario válido.";
-    }
-    if (!in_array($estado, ["Activo", "Inactivo"], true)) {
-        $errores[] = "Seleccione un estado válido.";
-    }
-
-    if (!$errores) {
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $creado_por = (int) $usuario_actual["id_usuario"];
-        $sql = "INSERT INTO usuarios (nombre, usuario, password, tipo, estado, creado_por)
-                VALUES (?, ?, ?, ?, ?, ?)";
-        $consulta = $conexion->prepare($sql);
-        $consulta->bind_param(
-            "sssssi",
-            $nombre,
-            $usuario,
-            $password_hash,
-            $tipo,
-            $estado,
-            $creado_por
-        );
-
-        if ($consulta->execute()) {
-            $consulta->close();
-            establecer_mensaje(
-                "exito",
-                $es_administrador
-                    ? "El usuario fue registrado correctamente."
-                    : "El visitante fue registrado correctamente."
-            );
-            redireccionar("listar.php");
-        }
-
-        if ($consulta->errno === 1062) {
-            $errores[] = "Ese nombre de usuario ya está registrado.";
-        } else {
-            error_log("Error al registrar usuario: " . $consulta->error);
-            $errores[] = "No fue posible guardar el usuario.";
-        }
-        $consulta->close();
-    }
+if (!in_array($filtro_tipo, $tipos_validos, true)) {
+    $filtro_tipo = "";
 }
 
-$titulo_pagina = $es_administrador ? "Agregar usuario" : "Agregar visitante";
+$termino = "%" . $busqueda . "%";
+$sql = "SELECT id_usuario, nombre, usuario, tipo, estado, ultimo_acceso, creado_en
+        FROM usuarios
+        WHERE (? = '' OR tipo = ?)
+          AND (? = '' OR nombre LIKE ? OR usuario LIKE ?)
+        ORDER BY
+            CASE tipo
+                WHEN 'administrador' THEN 1
+                WHEN 'usuario' THEN 2
+                ELSE 3
+            END,
+            nombre
+        LIMIT 200";
+$consulta = $conexion->prepare($sql);
+$consulta->bind_param(
+    "sssss",
+    $filtro_tipo,
+    $filtro_tipo,
+    $busqueda,
+    $termino,
+    $termino
+);
+$consulta->execute();
+$usuarios = $consulta->get_result();
+
+$es_administrador = $usuario_actual["tipo"] === "administrador";
+$titulo_pagina = "Usuarios";
 $ruta_base = "../";
 $pagina_actual = "usuarios";
 require __DIR__ . "/../includes/encabezado.php";
 ?>
 
-<main id="contenido" class="contenedor-formulario">
-    <section class="formulario">
-        <div class="cabecera-formulario">
-            <span class="etiqueta-superior"><?php echo $es_administrador ? "Administración de cuentas" : "Permiso limitado"; ?></span>
-            <h1><?php echo $es_administrador ? "Agregar usuario" : "Agregar visitante"; ?></h1>
-            <p><?php echo $es_administrador ? "Complete los datos y asigne el rol correspondiente." : "Su cuenta solo puede crear usuarios con rol Visitante y estado Activo."; ?></p>
+<main id="contenido" class="contenedor-panel">
+    <section class="cabecera-modulo">
+        <div>
+            <span class="etiqueta-superior">Directorio protegido</span>
+            <h1>Usuarios del sistema</h1>
+            <p>
+                <?php if ($es_administrador) { ?>Administre cuentas, roles y estados.<?php } else { ?>Consulte el directorio sin acceso a contraseñas y registre únicamente visitantes.<?php } ?>
+            </p>
         </div>
-
-        <?php if ($errores) { ?>
-            <div class="mensaje error" role="alert"><strong>Revise la información:</strong><ul><?php foreach ($errores as $error) { ?><li><?php echo escapar($error); ?></li><?php } ?></ul></div>
-        <?php } ?>
-
-        <form method="POST" action="agregar.php">
-            <?php echo campo_csrf(); ?>
-
-            <div class="campo">
-                <label for="nombre">Nombre completo</label>
-                <input id="nombre" type="text" name="nombre" value="<?php echo escapar($nombre); ?>" minlength="3" maxlength="100" autocomplete="name" required>
-            </div>
-
-            <div class="campo">
-                <label for="usuario">Nombre de usuario</label>
-                <input id="usuario" type="text" name="usuario" value="<?php echo escapar($usuario); ?>" minlength="4" maxlength="30" pattern="[a-z0-9._-]+" autocomplete="username" required>
-                <small>Use minúsculas, números, punto, guion o guion bajo.</small>
-            </div>
-
-            <div class="formulario-dos-columnas">
-                <div class="campo">
-                    <label for="password">Contraseña</label>
-                    <input id="password" type="password" name="password" minlength="8" maxlength="255" autocomplete="new-password" required>
-                    <small>Mínimo 8 caracteres, con letras y números.</small>
-                </div>
-                <div class="campo">
-                    <label for="confirmar_password">Confirmar contraseña</label>
-                    <input id="confirmar_password" type="password" name="confirmar_password" minlength="8" maxlength="255" autocomplete="new-password" required>
-                </div>
-            </div>
-
-            <?php if ($es_administrador) { ?>
-                <div class="formulario-dos-columnas">
-                    <div class="campo">
-                        <label for="tipo">Tipo de usuario</label>
-                        <select id="tipo" name="tipo" required>
-                            <option value="administrador" <?php echo $tipo === "administrador" ? "selected" : ""; ?>>Administrador</option>
-                            <option value="usuario" <?php echo $tipo === "usuario" ? "selected" : ""; ?>>Usuario</option>
-                            <option value="visitante" <?php echo $tipo === "visitante" ? "selected" : ""; ?>>Visitante</option>
-                        </select>
-                    </div>
-                    <div class="campo">
-                        <label for="estado">Estado</label>
-                        <select id="estado" name="estado" required>
-                            <option value="Activo" <?php echo $estado === "Activo" ? "selected" : ""; ?>>Activo</option>
-                            <option value="Inactivo" <?php echo $estado === "Inactivo" ? "selected" : ""; ?>>Inactivo</option>
-                        </select>
-                    </div>
-                </div>
-            <?php } else { ?>
-                <div class="resumen-permiso"><span>Rol asignado</span><strong>Visitante</strong><span>Estado</span><strong>Activo</strong></div>
-            <?php } ?>
-
-            <div class="acciones-formulario">
-                <a class="boton boton-secundario" href="listar.php">Cancelar</a>
-                <button class="boton btn-agregar" type="submit">Guardar usuario</button>
-            </div>
-        </form>
+        <a class="boton btn-agregar" href="agregar.php">
+            <?php echo $es_administrador ? "Agregar usuario" : "Agregar visitante"; ?>
+        </a>
     </section>
+
+    <?php mostrar_mensajes(); ?>
+
+    <form class="filtros" method="GET" action="listar.php">
+        <div class="campo">
+            <label for="buscar">Buscar</label>
+            <input id="buscar" type="search" name="buscar" value="<?php echo escapar($busqueda); ?>" placeholder="Nombre o usuario">
+        </div>
+        <div class="campo">
+            <label for="tipo">Tipo</label>
+            <select id="tipo" name="tipo">
+                <option value="">Todos</option>
+                <?php foreach ($tipos_validos as $tipo) { ?>
+                    <option value="<?php echo escapar($tipo); ?>" <?php echo $filtro_tipo === $tipo ? "selected" : ""; ?>><?php echo escapar(nombre_rol($tipo)); ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <button type="submit">Aplicar filtros</button>
+        <a href="listar.php">Limpiar</a>
+    </form>
+
+    <div class="nota-seguridad">
+        <strong>Privacidad:</strong> la consulta selecciona campos específicos y nunca solicita la columna <code>password</code>.
+    </div>
+
+    <?php if ($usuarios->num_rows > 0) { ?>
+        <div class="tabla-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Último acceso</th>
+                        <?php if ($es_administrador) { ?><th>Acciones</th><?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($usuario = $usuarios->fetch_assoc()) { ?>
+                        <tr>
+                            <td data-label="Nombre"><?php echo escapar($usuario["nombre"]); ?></td>
+                            <td data-label="Usuario"><code><?php echo escapar($usuario["usuario"]); ?></code></td>
+                            <td data-label="Rol"><span class="rol rol-<?php echo escapar($usuario["tipo"]); ?>"><?php echo escapar(nombre_rol($usuario["tipo"])); ?></span></td>
+                            <td data-label="Estado"><span class="estado <?php echo $usuario["estado"] === "Activo" ? "estado-activo" : "estado-inactivo"; ?>"><?php echo escapar($usuario["estado"]); ?></span></td>
+                            <td data-label="Último acceso"><?php echo $usuario["ultimo_acceso"] ? escapar(date("d/m/Y H:i", strtotime($usuario["ultimo_acceso"]))) : "Sin ingreso"; ?></td>
+                            <?php if ($es_administrador) { ?>
+                                <td data-label="Acciones" class="acciones-tabla">
+                                    <a class="boton btn-editar boton-pequeno" href="editar.php?id=<?php echo (int) $usuario["id_usuario"]; ?>">Editar</a>
+                                    <?php if ((int) $usuario["id_usuario"] !== (int) $usuario_actual["id_usuario"]) { ?>
+                                        <form class="formulario-eliminar" action="eliminar.php" method="POST" data-confirmacion="¿Eliminar la cuenta de <?php echo escapar($usuario["nombre"]); ?>? Esta acción no se puede deshacer.">
+                                            <?php echo campo_csrf(); ?>
+                                            <input type="hidden" name="id_usuario" value="<?php echo (int) $usuario["id_usuario"]; ?>">
+                                            <button class="boton btn-eliminar boton-pequeno" type="submit">Eliminar</button>
+                                        </form>
+                                    <?php } else { ?>
+                                        <span class="texto-suave">Sesión actual</span>
+                                    <?php } ?>
+                                </td>
+                            <?php } ?>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <p class="contador-resultados"><?php echo $usuarios->num_rows; ?> resultado(s). Se muestran como máximo 200 registros.</p>
+    <?php } else { ?>
+        <div class="estado-vacio"><h2>No hay resultados</h2><p>Cambie los filtros o registre un usuario nuevo.</p></div>
+    <?php } ?>
 </main>
 
 <?php
+$consulta->close();
 $conexion->close();
 require __DIR__ . "/../includes/pie.php";
 ?>
-

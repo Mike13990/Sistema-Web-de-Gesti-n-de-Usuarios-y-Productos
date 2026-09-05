@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-define("APP_NOMBRE", "Nodo Altura 502");
+define("APP_NOMBRE", "ConectaPro");
 define("APP_ESLOGAN", "Tecnología útil para ideas en movimiento.");
 define("TIEMPO_MAXIMO_SESION", 1800);
 

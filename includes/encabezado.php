@@ -19,7 +19,7 @@ function clase_enlace_activo(string $pagina, string $pagina_actual): string
     <meta name="description" content="Catálogo y sistema de gestión de Nodo Altura 502.">
     <meta name="theme-color" content="#102a43">
     <title><?php echo escapar($titulo_pagina); ?> | <?php echo escapar(APP_NOMBRE); ?></title>
-    <link rel="icon" href="<?php echo escapar($ruta_base); ?>assets/img/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="<?php echo escapar($ruta_base); ?>assets/img/logo.png" type="image/png">
     <link rel="stylesheet" href="<?php echo escapar($ruta_base); ?>css/style.css">
     <script src="<?php echo escapar($ruta_base); ?>assets/js/app.js" defer></script>
 </head>
@@ -29,7 +29,7 @@ function clase_enlace_activo(string $pagina, string $pagina_actual): string
     <header class="encabezado-sitio">
         <div class="barra-navegacion">
             <a class="marca" href="<?php echo escapar($ruta_base); ?>index.php" aria-label="Ir al inicio de Nodo Altura 502">
-                <img src="<?php echo escapar($ruta_base); ?>assets/img/logo.svg" alt="" width="48" height="48">
+                <img src="<?php echo escapar($ruta_base); ?>assets/img/logo.png" alt="" width="48" height="48">
                 <span>
                     <strong><?php echo escapar(APP_NOMBRE); ?></strong>
                     <small><?php echo escapar(APP_ESLOGAN); ?></small>

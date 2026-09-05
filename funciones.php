@@ -257,6 +257,117 @@ function validar_imagen_producto(string $imagen): bool
     $esquema = strtolower((string) parse_url($imagen, PHP_URL_SCHEME));
     return in_array($esquema, ["http", "https"], true);
 }
+function procesar_imagen_producto(
+    array $archivo,
+    string $url,
+    string $imagen_actual = ""
+): array {
+    $url = trim($url);
+    $codigo_error = (int) ($archivo["error"] ?? UPLOAD_ERR_NO_FILE);
+    $hay_archivo = $codigo_error !== UPLOAD_ERR_NO_FILE;
+
+    if ($url !== "" && $hay_archivo) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "Seleccione un archivo o escriba una URL, no ambas opciones."
+        ];
+    }
+
+    if ($url !== "") {
+        $esquema = strtolower((string) parse_url($url, PHP_URL_SCHEME));
+
+        if (!filter_var($url, FILTER_VALIDATE_URL) || $esquema !== "https") {
+            return [
+                "imagen" => $imagen_actual,
+                "error" => "Ingrese una URL válida que comience con https://."
+            ];
+        }
+
+        return [
+            "imagen" => $url,
+            "error" => null
+        ];
+    }
+
+    if (!$hay_archivo) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => null
+        ];
+    }
+
+    if ($codigo_error !== UPLOAD_ERR_OK) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "No fue posible recibir el archivo."
+        ];
+    }
+
+    $temporal = (string) ($archivo["tmp_name"] ?? "");
+
+    if (!is_uploaded_file($temporal)) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "El archivo recibido no es válido."
+        ];
+    }
+
+    $tamano = filesize($temporal);
+
+    if ($tamano === false || $tamano <= 0 || $tamano > 5 * 1024 * 1024) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "La imagen debe pesar como máximo 5 MB."
+        ];
+    }
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $finfo->file($temporal);
+
+    $formatos_permitidos = [
+        "image/png" => "png",
+        "image/jpeg" => "jpg",
+        "image/webp" => "webp"
+    ];
+
+    if (!is_string($mime) || !isset($formatos_permitidos[$mime])) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "Solo se permiten imágenes PNG, JPG o WEBP."
+        ];
+    }
+
+    $directorio = __DIR__ . "/assets/img/productos/subidos";
+
+    if (
+        !is_dir($directorio)
+        && !mkdir($directorio, 0755, true)
+        && !is_dir($directorio)
+    ) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "No fue posible preparar la carpeta de imágenes."
+        ];
+    }
+
+    $nombre_archivo = bin2hex(random_bytes(16))
+        . "."
+        . $formatos_permitidos[$mime];
+
+    $destino = $directorio . "/" . $nombre_archivo;
+
+    if (!move_uploaded_file($temporal, $destino)) {
+        return [
+            "imagen" => $imagen_actual,
+            "error" => "No fue posible guardar la imagen."
+        ];
+    }
+
+    return [
+        "imagen" => "assets/img/productos/subidos/" . $nombre_archivo,
+        "error" => null
+    ];
+}
 
 function ruta_imagen_producto(?string $imagen, string $prefijo = ""): string
 {
