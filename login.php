@@ -104,7 +104,7 @@ require __DIR__ . "/includes/encabezado.php";
     <section class="login">
         <div class="login-marca">
             <img
-                src="assets/img/logo.svg"
+                src="assets/img/logo.png"
                 alt=""
                 width="72"
                 height="72"
