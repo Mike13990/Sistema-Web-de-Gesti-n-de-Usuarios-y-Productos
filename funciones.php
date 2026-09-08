@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . "/configuracion.php";
+require_once __DIR__ . "/conexion.php";
 
 function iniciar_sesion(): void
 {

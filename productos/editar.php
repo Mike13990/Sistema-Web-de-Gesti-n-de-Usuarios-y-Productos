@@ -226,7 +226,7 @@ require __DIR__ . "/../includes/encabezado.php";
 
             <p>
                 Los cambios de un producto activo se reflejarán
-                en el catálogo público.
+                en el catálogo publico.
             </p>
         </div>
 

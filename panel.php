@@ -78,7 +78,7 @@ require __DIR__ . "/includes/encabezado.php";
                 <article class="tarjeta-opcion">
                     <span class="icono-opcion">PR</span>
                     <h3>Gestionar productos</h3>
-                    <p>Administrar información, precios, existencias, imágenes y visibilidad del catálogo público.</p>
+                    <p>Administrar información, precios, existencias, imágenes y visibilidad del catálogo.</p>
                     <div class="grupo-botones"><a class="boton" href="productos/listar.php">Ver productos</a><a class="boton boton-secundario" href="productos/agregar.php">Agregar</a></div>
                 </article>
             </div>
@@ -116,7 +116,7 @@ require __DIR__ . "/includes/encabezado.php";
             <span class="icono-opcion">VI</span>
             <h2>Acceso de consulta</h2>
             <p>Su rol permite consultar la página pública y el catálogo. No puede entrar a los módulos de usuarios ni de administración de productos.</p>
-            <a class="boton" href="index.php#productos">Ver catálogo público</a>
+            <a class="boton" href="index.php#productos">Ver catálogo</a>
         </section>
     <?php } ?>
 </main>

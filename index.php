@@ -107,7 +107,7 @@ require __DIR__ . "/includes/encabezado.php";
     <section class="seccion" id="productos">
         <div class="cabecera-seccion">
             <div>
-                <span class="etiqueta-superior">Catálogo público</span>
+                <span class="etiqueta-superior">Catálogo</span>
                 <h2>Productos disponibles</h2>
                 <p>Los visitantes pueden consultar el catálogo; solamente el administrador puede modificarlo.</p>
             </div>
