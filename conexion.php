@@ -9,8 +9,8 @@ define("TIEMPO_MAXIMO_SESION", 1800);
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $servidor = "127.0.0.1";
-$usuario_bd = "sistema_app";
-$password_bd = "1234";
+$usuario_bd = "root";
+$password_bd = "";
 $base_datos = "sistema_usuarios";
 
 $conexion = new mysqli(

@@ -190,7 +190,9 @@ button {
     background: rgba(255, 255, 255, 0.12);
     color: var(--blanco);
 }
-
+.menu-principal > a.boton-menu-login {
+    color: #ffffff !important;
+}
 .usuario-conectado {
     max-width: 190px;
     padding: 7px 10px;

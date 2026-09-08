@@ -336,20 +336,20 @@ require __DIR__ . "/../includes/encabezado.php";
                     name="imagen_url"
                     value="<?php echo escapar($imagen_url); ?>"
                     maxlength="500"
-                    placeholder="https://sitio.com/imagen.png"
+                    placeholder="https://sitio.com/imagen.jpg"
                 >
             </div>
 
             <div class="campo">
                 <label for="imagen_archivo">
-                    O seleccionar archivo PNG
+                    O seleccionar archivo
                 </label>
 
                 <input
                     id="imagen_archivo"
                     type="file"
                     name="imagen_archivo"
-                    accept="image/png"
+                    accept="image/jpg"
                 >
 
                 <small>
